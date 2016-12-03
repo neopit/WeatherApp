@@ -1,0 +1,48 @@
+
+/* Class = "UILabel"; text = "-"; ObjectID = "2Dp-ee-iFv"; */
+"2Dp-ee-iFv.text" = "-";
+
+/* Class = "UILabel"; text = "Forecast"; ObjectID = "5rd-9a-2jl"; */
+"5rd-9a-2jl.text" = "Forecast";
+
+/* Class = "UILabel"; text = "City"; ObjectID = "7NH-4L-UWO"; */
+"7NH-4L-UWO.text" = "City";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "7Qo-cE-AVt"; */
+"7Qo-cE-AVt.text" = "--";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Gdu-Bg-uen"; */
+"Gdu-Bg-uen.text" = "-";
+
+/* Class = "UILabel"; text = "Max"; ObjectID = "HiB-8P-H6I"; */
+"HiB-8P-H6I.text" = "Max";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "PGp-dm-7DH"; */
+"PGp-dm-7DH.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "Country"; ObjectID = "cAo-d6-KXz"; */
+"cAo-d6-KXz.text" = "Country";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "d6q-b4-dEX"; */
+"d6q-b4-dEX.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "iel-mE-GDi"; */
+"iel-mE-GDi.text" = "-";
+
+/* Class = "UILabel"; text = "Min"; ObjectID = "jnQ-oQ-P9Y"; */
+"jnQ-oQ-P9Y.text" = "Min";
+
+/* Class = "UILabel"; text = ","; ObjectID = "kY8-sC-b5E"; */
+"kY8-sC-b5E.text" = ",";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "kkI-AQ-EAM"; */
+"kkI-AQ-EAM.text" = "-";
+
+/* Class = "UITextField"; placeholder = "Enter city name"; ObjectID = "lbc-KS-8uC"; */
+"lbc-KS-8uC.placeholder" = "Enter city name";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "r8O-AC-xYK"; */
+"r8O-AC-xYK.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "wBf-DN-rH2"; */
+"wBf-DN-rH2.text" = "-";

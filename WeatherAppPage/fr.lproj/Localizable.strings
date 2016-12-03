@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  WeatherAppPage
+
+  Created by Peter Gartner on 2016-12-03.
+  Copyright © 2016 Peter Gartner. All rights reserved.
+*/
+
+"Pull to refresh" = "Tirez pour rafraichir"
