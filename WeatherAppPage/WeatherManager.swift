@@ -27,21 +27,39 @@ public class WeatherManager{
         let task = session.dataTask(with: url!, completionHandler: {
             (data, response, error) in
             
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
-                    {
-                        let weatherData = Mapper<WeatherCurrent>().map(JSON: json)
-                        //print(json)
-                        completion(weatherData)
-                    }
-                } catch {
-                    print("error in JSONSerialization")
-                    completion(nil)
-                }
+            // Check for any errors
+            guard error == nil else {
+                print("error calling GET on \(url?.absoluteURL)")
+                print(error!)
+                return
             }
+            
+            // Make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // Parse the result as JSON
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                guard let weatherData = Mapper<WeatherCurrent>().map(JSON: json) else {
+                    print("Could no get the weather from JSON")
+                    return
+                }
+                
+                completion(weatherData)
+                
+            } catch {
+                print("error trying to convert data to JSON")
+                completion(nil)
+                return
+            }
+            
         })
         task.resume()
     }
@@ -61,21 +79,39 @@ public class WeatherManager{
         let task = session.dataTask(with: url!, completionHandler: {
             (data, response, error) in
             
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
-                    {
-                        let weatherData = Mapper<WeatherCurrent>().map(JSON: json)
-                        //print(json)
-                        completion(weatherData)
-                    }
-                } catch {
-                    print("error in JSONSerialization")
-                    completion(nil)
-                }
+            // Check for any errors
+            guard error == nil else {
+                print("error calling GET on \(url?.absoluteURL)")
+                print(error!)
+                return
             }
+            
+            // Make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // Parse the result as JSON
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                guard let weatherData = Mapper<WeatherCurrent>().map(JSON: json) else {
+                    print("Could no get the weather from JSON")
+                    return
+                }
+                
+                completion(weatherData)
+                
+            } catch {
+                print("error trying to convert data to JSON")
+                completion(nil)
+                return
+            }
+            
         })
         task.resume()
     }
@@ -95,20 +131,39 @@ public class WeatherManager{
         let task = session.dataTask(with: url!, completionHandler: {
             (data, response, error) in
             
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
-                    {
-                        let weatherData = Mapper<WeatherCurrent>().map(JSON: json)
-                        completion(weatherData)
-                    }
-                } catch {
-                    print("error in JSONSerialization")
-                    completion(nil)
-                }
+            // Check for any errors
+            guard error == nil else {
+                print("error calling GET on \(url?.absoluteURL)")
+                print(error!)
+                return
             }
+            
+            // Make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // Parse the result as JSON
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                guard let weatherData = Mapper<WeatherCurrent>().map(JSON: json) else {
+                    print("Could no get the weather from JSON")
+                    return
+                }
+                
+                completion(weatherData)
+                
+            } catch {
+                print("error trying to convert data to JSON")
+                completion(nil)
+                return
+            }
+            
         })
         task.resume()
     }
@@ -127,6 +182,9 @@ public class WeatherManager{
                 break
             case .daily:
                 query += "forecast/daily?" + trimmedString
+                break
+            case .hour:
+                query += "forecast?" + trimmedString
                 break
             case .find:
                  query += "find?" + trimmedString
@@ -165,20 +223,39 @@ public class WeatherManager{
         let task = session.dataTask(with: url!, completionHandler: {
             (data, response, error) in
             
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
-                    {
-                        let weatherData = Mapper<WeatherDaily>().map(JSON: json)
-                        completion(weatherData)
-                    }
-                } catch {
-                    print("error in JSONSerialization")
-                    completion(nil)
-                }
+            // Check for any errors
+            guard error == nil else {
+                print("error calling GET on \(url?.absoluteURL)")
+                print(error!)
+                return
             }
+            
+            // Make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // Parse the result as JSON
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                guard let weatherData = Mapper<WeatherDaily>().map(JSON: json) else {
+                    print("Could no get the weather from JSON")
+                    return
+                }
+                
+                completion(weatherData)
+                
+            } catch {
+                print("error trying to convert data to JSON")
+                completion(nil)
+                return
+            }
+            
         })
         task.resume()
     }
@@ -198,20 +275,91 @@ public class WeatherManager{
         let task = session.dataTask(with: url!, completionHandler: {
             (data, response, error) in
             
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
-                    {
-                        let weatherData = Mapper<WeatherDaily>().map(JSON: json)
-                        completion(weatherData)
-                    }
-                } catch {
-                    print("error in JSONSerialization")
-                    completion(nil)
-                }
+            // Check for any errors
+            guard error == nil else {
+                print("error calling GET on \(url?.absoluteURL)")
+                print(error!)
+                return
             }
+            
+            // Make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // Parse the result as JSON
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                guard let weatherData = Mapper<WeatherDaily>().map(JSON: json) else {
+                    print("Could no get the weather from JSON")
+                    return
+                }
+                
+                completion(weatherData)
+                
+            } catch {
+                print("error trying to convert data to JSON")
+                completion(nil)
+                return
+            }
+            
+        })
+        task.resume()
+    }
+    
+    // GET Weather by LOCATION
+    func getWeatherHour(byIDCity:String, withUnit:String?, withLanguage:String?, completion: @escaping (WeatherForecastNextHour?) -> Void) {
+        
+        // Session Configuration
+        let config = URLSessionConfiguration.default
+        // Load configuration into Session
+        let session = URLSession(configuration: config)
+        // Construct query
+        let query:String = "id=" + byIDCity
+        let url = URL(string: buildURLStringForWeather(query, withUnit, withLanguage, EnumWeatherType.hour))
+        
+        // GET data from server
+        let task = session.dataTask(with: url!, completionHandler: {
+            (data, response, error) in
+            
+            // Check for any errors
+            guard error == nil else {
+                print("error calling GET on \(url?.absoluteURL)")
+                print(error!)
+                return
+            }
+            
+            // Make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // Parse the result as JSON
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                guard let weatherData = Mapper<WeatherForecastNextHour>().map(JSON: json) else {
+                    print("Could no get the weather from JSON")
+                    return
+                }
+                
+                completion(weatherData)
+                
+            } catch {
+                print("error trying to convert data to JSON")
+                completion(nil)
+                return
+            }
+            
         })
         task.resume()
     }
@@ -231,25 +379,42 @@ public class WeatherManager{
         let task = session.dataTask(with: url!, completionHandler: {
             (data, response, error) in
             
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any]
-                    {
-                        let weatherData = Mapper<FindCity>().map(JSON: json)
-                        completion(weatherData)
-                    }
-                } catch {
-                    print("error in JSONSerialization")
-                    completion(nil)
-                }
+            // Check for any errors
+            guard error == nil else {
+                print("error calling GET on \(url?.absoluteURL)")
+                print(error!)
+                return
             }
+            
+            // Make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            // Parse the result as JSON
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any] else {
+                    print("error trying to convert data to JSON")
+                    return
+                }
+                
+                guard let weatherData = Mapper<FindCity>().map(JSON: json) else {
+                    print("Could no get the weather from JSON")
+                    return
+                }
+                
+                completion(weatherData)
+                
+            } catch {
+                print("error trying to convert data to JSON")
+                completion(nil)
+                return
+            }
+            
         })
         task.resume()
     }
-
-
     
 }
 

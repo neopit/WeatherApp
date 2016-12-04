@@ -7,4 +7,7 @@
 */
 
 "Pull to refresh" = "Tirez pour rafraichir";
-"Forecast" = "Prévisions";
+"Forecast 7 days" = "Prévisions à 7 jours";
+"next 12 hours" = "Proch. 12h";
+"next 24 hours" = "Proch. 24h";
+"next 36 hours" = "Proch. 36h";

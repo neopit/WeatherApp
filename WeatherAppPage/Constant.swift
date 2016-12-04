@@ -24,6 +24,7 @@ let globalCurrentLanguage = Locale.current.languageCode
 enum EnumWeatherType {
     case current
     case daily
+    case hour
     case find
 }
 

@@ -1,17 +1,16 @@
 //
-//  Forecast.swift
-//  WeatherApp
+//  NextHour.swift
+//  WeatherAppPage
 //
-//  Created by Peter Gartner on 2016-12-01.
+//  Created by Peter Gartner on 2016-12-03.
 //  Copyright © 2016 Peter Gartner. All rights reserved.
 //
-
 
 import Foundation
 import ObjectMapper
 
 
-class Forecast: Mappable {
+class NextHour: Mappable {
     
     var date:Date?
     var weatherCode:Int?
@@ -34,9 +33,9 @@ class Forecast: Mappable {
         condition               <- map["weather.0.main"]
         conditionDescription    <- map["weather.0.description"]
         icon                    <- map["weather.0.icon"]
-        temperature             <- map["temp.day"]
-        temperatureHigh         <- map["temp.min"]
-        temperatureLow          <- map["temp.max"]
-    
+        temperature             <- map["main.temp"]
+        temperatureHigh         <- map["main.temp_max"]
+        temperatureLow          <- map["main.temp_min"]
+        
     }
 }

@@ -24,7 +24,20 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     @IBOutlet weak var mainTemperatureLabel: UILabel!
     
     @IBOutlet weak var forecastLabel: UILabel!
+    @IBOutlet weak var viewForecast: UIView!
     
+    @IBOutlet weak var viewNextHour: UIView!
+    @IBOutlet weak var next12HLabel: UILabel!
+    @IBOutlet weak var next24HLabel: UILabel!
+    @IBOutlet weak var next36HLabel: UILabel!
+    @IBOutlet weak var next12HIcon: UIImageView!
+    @IBOutlet weak var next24HIcon: UIImageView!
+    @IBOutlet weak var next36HIcon: UIImageView!
+    @IBOutlet weak var next12HTempLabel: UILabel!
+    @IBOutlet weak var next24HTempLabel: UILabel!
+    @IBOutlet weak var next36HTempLabel: UILabel!
+    
+    @IBOutlet weak var contraintHeightViewNextHour: NSLayoutConstraint!
     
     let refreshControl = UIRefreshControl()
        
@@ -32,6 +45,7 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     var currentCityID:String?
     var currentWeatherData:WeatherCurrent?
     var currentWeatherDaily:WeatherDaily?
+    var currentWeatherHour:WeatherForecastNextHour?
     
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation!
@@ -40,12 +54,18 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
         super.viewDidLoad()
     
         // Label translation 
-        forecastLabel.text = "Forecast".localized
+        forecastLabel.text = "Forecast 7 days".localized
+        next12HLabel.text = "next 12 hours".localized
+        next24HLabel.text = "next 24 hours".localized
+        next36HLabel.text = "next 36 hours".localized
         
         // Positionning trick - Adjust the size of the MockView in order to put correctly the weather at the bottom of the view
         let screenSize = UIScreen.main.bounds
         let screenHeight = screenSize.height
-        self.contraintMockViewHeight.constant = screenHeight - 217 - 24
+        self.contraintMockViewHeight.constant = screenHeight - 44 - 24 - contraintHeightViewNextHour.constant
+        
+        self.viewForecast.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
+        self.viewNextHour.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
         
         mainScrollView.delegate = self
         
@@ -73,7 +93,7 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
     /*!
      Initializise the main UI component of the screen
     */
-    func initView() {
+    func initMainView() {
         
         if currentWeatherData != nil {
             
@@ -82,15 +102,15 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
             }
             
             if currentWeatherData!.temperature != nil {
-                mainTemperatureLabel.text = String.localizedStringWithFormat("%.0f °", round(currentWeatherData!.temperature!))
+                mainTemperatureLabel.text = String.localizedStringWithFormat("%.0f", round(currentWeatherData!.temperature!))
             }
             
             if currentWeatherData!.temperatureLow != nil {
-                mainLowTemperatureLabel.text = String.localizedStringWithFormat("%.0f °", round(currentWeatherData!.temperatureLow!))
+                mainLowTemperatureLabel.text = String.localizedStringWithFormat("%.0f°", round(currentWeatherData!.temperatureLow!))
             }
             
             if currentWeatherData!.temperatureHigh != nil {
-                mainHighTemperatureLabel.text = String.localizedStringWithFormat("%.0f °", round(currentWeatherData!.temperatureHigh!))
+                mainHighTemperatureLabel.text = String.localizedStringWithFormat("%.0f°", round(currentWeatherData!.temperatureHigh!))
             }
             
             mainConditionLabel.text = currentWeatherData?.conditionDescription ?? ""
@@ -108,6 +128,26 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
                 self.mainView.backgroundColor = UIColor(patternImage: image)
             }
         }
+    }
+    
+    
+    func initHourView() {
+        
+        if let next12H = currentWeatherHour!.getNext12H() {
+            next12HTempLabel.text = String.localizedStringWithFormat("%.0f°", round(next12H.temperature!))
+            next12HIcon.image = UIImage(named:next12H.icon!)
+        }
+        
+        if let next24H = currentWeatherHour!.getNext24H() {
+            next24HTempLabel.text = String.localizedStringWithFormat("%.0f°", round(next24H.temperature!))
+            next24HIcon.image = UIImage(named:next24H.icon!)
+        }
+        
+        if let next36H = currentWeatherHour!.getNext36H() {
+            next36HTempLabel.text = String.localizedStringWithFormat("%.0f°", round(next36H.temperature!))
+            next36HIcon.image = UIImage(named:next36H.icon!)
+        }
+
     }
     
     /*!
@@ -210,7 +250,7 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
                                             DispatchQueue.main.async(execute: { () -> Void in
                     
                                                     self.currentWeatherData = weatherData
-                                                    self.initView()
+                                                    self.initMainView()
                                             })
                                         })
             
@@ -254,10 +294,21 @@ class DataViewController: UIViewController, CLLocationManagerDelegate, UITableVi
                                         DispatchQueue.main.async(execute: { () -> Void in
                 
                                             self.currentWeatherData = weatherData
-                                            self.initView()
+                                            self.initMainView()
                                         })
                                     })
-            
+        
+        weatherManager.getWeatherHour(byIDCity: currentCityID!,
+                                  withUnit: kUnitMetric,
+                                  withLanguage: globalCurrentLanguage,
+                                  completion: { (weatherData) -> Void in
+                                    DispatchQueue.main.async(execute: { () -> Void in
+                                        
+                                        self.currentWeatherHour = weatherData
+                                        self.initHourView()
+                                    })
+        })
+        
         weatherManager.getWeatherDaily(byIDCity: currentCityID!,
                                        withUnit: kUnitMetric,
                                        withLanguage: globalCurrentLanguage,
