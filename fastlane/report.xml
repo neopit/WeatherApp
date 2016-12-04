@@ -3,22 +3,22 @@
   <testsuite name="fastlane.lanes">
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.003399">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.001365">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000489">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000439">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: gym" time="89.853209">
+      <testcase classname="fastlane.lanes" name="2: gym" time="75.26006">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: crashlytics" time="11.866475">
+      <testcase classname="fastlane.lanes" name="3: crashlytics" time="13.99672">
         
       </testcase>
     
