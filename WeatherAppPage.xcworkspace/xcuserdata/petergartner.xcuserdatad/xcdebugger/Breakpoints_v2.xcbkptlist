@@ -586,11 +586,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeatherAppPageTests/WeatherManagerTest.swift"
-            timestampString = "502531057.406319"
+            timestampString = "502532482.063873"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "testRetrieveProductsValidResponse()"
             landmarkType = "7">
          </BreakpointContent>
